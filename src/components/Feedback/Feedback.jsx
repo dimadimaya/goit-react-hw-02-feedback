@@ -12,26 +12,10 @@ class Feedback extends React.Component {
     bad: 0,
   };
 
-  handleGoodClick = () => {
+  onLeaveFeedback = state => {
     this.setState(prevState => {
       return {
-        good: prevState.good + 1,
-      };
-    });
-  };
-
-  handleNeutralClick = () => {
-    this.setState(prevState => {
-      return {
-        neutral: prevState.neutral + 1,
-      };
-    });
-  };
-
-  handleBadlClick = () => {
-    this.setState(prevState => {
-      return {
-        bad: prevState.bad + 1,
+        [state]: prevState[state] + 1,
       };
     });
   };
@@ -45,13 +29,13 @@ class Feedback extends React.Component {
   }
 
   render() {
+    const options = Object.keys(this.state);
     return (
       <div className={styles.feedback}>
         <Section title="Please leave feedback">
           <FeedbackOptions
-            handleGoodClick={this.handleGoodClick}
-            handleNeutralClick={this.handleNeutralClick}
-            handleBadlClick={this.handleBadlClick}
+            options={options}
+            onLeaveFeedback={this.onLeaveFeedback}
           />
         </Section>
         {this.countTotalFeedback() ? (
